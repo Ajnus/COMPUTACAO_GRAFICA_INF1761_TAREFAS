@@ -8,7 +8,6 @@
 #include <iostream>
 #include <cstdlib>
 
-// static TrianglePtr tri;
 static ShaderPtr shd;
 static PolygonPtr pol;
 static DiskPtr dsk;
@@ -53,40 +52,11 @@ static void initialize()
     exit(1);
   }
 
-  /*
-  tri = Triangle::Make();
-  if (!tri)
-  {
-    std::cerr << "Erro ao criar o triângulo." << std::endl;
-    exit(1);
-  }
-  */
-
   dsk = Disk::Make();
   if (!dsk)
   {
-    std::cerr << "Erro ao criar o disco." << std::endl;
+    std::cerr << "Erro ao criar o(s) disco(s)." << std::endl;
     exit(1);
-  }
-
-  /**
-    unsigned int colors[][3] = {
-        {137, 250, 195},
-        {165, 208, 239},
-        {231, 150, 153},
-        {215, 168, 236},
-        {244, 239, 152}};
-  */
-
-  for (int i = 0; i < 5; ++i)
-  {
-    /*
-    std::cout << "MAIN.CPP: r: " << colors[i][0] << " ";
-    std::cout << "MAIN.CPP: g: " << colors[i][1] << " ";
-    std::cout << "MAIN.CPP: b: " << colors[i][2] << " ";
-    */
-
-    // dsk->Draw(/*vertices[i][0], vertices[i][1], 0.2f, colors[i]*/);
   }
 
   Error::Check("initialize");
@@ -96,8 +66,6 @@ static void display(GLFWwindow *win)
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   shd->UseProgram();
-
-  // tri->Draw();
 
   int programID = shd->GetID();
   Error::Check("After shd->GetID()");
@@ -109,11 +77,11 @@ static void display(GLFWwindow *win)
     std::cout << "objectType não encontrado";
   }
 
-  glUniform1i(typeLocation, 0); // Define 'objectType' como 0 para polígono
-  pol->Draw();
-
   glUniform1i(typeLocation, 1); // Define 'objectType' como 1 para disco(s)
   dsk->Draw();
+
+  glUniform1i(typeLocation, 0); // Define 'objectType' como 0 para polígono
+  pol->Draw();
 
   Error::Check("display");
 }

@@ -62,29 +62,4 @@ void Polygon::Draw()
 {
     glBindVertexArray(m_vao);
     glDrawElements(GL_LINE_LOOP, 9, GL_UNSIGNED_INT, 0);
-    // glDrawArrays(GL_TRIANGLES,0,3);
-
-    /*
-    std::vector<float> vertices(x_y, x_y + 2 * 5);
-
-    // Desenhar os círculos em cada vértice
-    float m_radius = 0.05f; // Ajuste o tamanho do círculo
-
-    for (const auto &vertex : vertices)
-    {
-        glBegin(GL_TRIANGLE_FAN);
-
-        int numSegments = 100;
-
-        // Generate the vertices for the circle
-        for (int i = 0; i <= numSegments; ++i)
-        {
-            float theta = 2.0f * PI * float(i) / float(numSegments); // Current angle
-            float dx = m_radius * cosf(theta);                       // X component
-            float dy = m_radius * sinf(theta);                       // Y component
-            vertices.push_back(-0.5f + dx);
-            vertices.push_back(-0.5f + dy);
-        }
-    }
-    */
 }

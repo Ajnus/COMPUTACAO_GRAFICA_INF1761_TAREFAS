@@ -12,7 +12,6 @@
 #include "polygon.h"
 
 #define PI 3.14159265359f
-// static TrianglePtr tri;
 static ShaderPtr shd;
 
 DiskPtr Disk::Make()
@@ -24,17 +23,6 @@ Disk::Disk()
 {
     int n = 100;         // Número de triângulos (suavidade do círculo)
     float radius = 0.1f; // Raio do círculo
-
-    /*
-    shd->UseProgram();
-    glUseProgram(shd->GetID()); // Use o programa de shader
-    indexLocation = glGetUniformLocation(shd->GetID(), "circleIndex");
-    if (indexLocation == -1)
-    {
-        std::cout << "circleIndex não encontrado";
-    }
-    Error::Check("After glGetUniformLocation(programID, circleIndex");
-    */
 
     float xy[][2] = {
         -0.5f,
@@ -65,8 +53,6 @@ Disk::Disk()
         std::cout << "cx: " << cx << "\n";
         std::cout << "cy: " << cy << "\n";
 
-        std::cout << "OI";
-
         std::vector<float> vertices;
         std::vector<unsigned int> indices;
 
@@ -96,32 +82,9 @@ Disk::Disk()
         // Corrigir o último índice para voltar ao primeiro ponto
         indices[indices.size() - 1] = 1;
 
-        /*
-        float coord[] = {
-            -0.5f,
-            -0.5f,
-            0.5f,
-            -0.5f,
-            0.0f,
-            0.5f,
-        };
-        unsigned char color[] = {
-            255, 0, 0,
-            0, 255, 0,
-            0, 0, 255};
-        unsigned int index[] = {0, 1, 2};
-        */
-
         // Bind VAO para este disco
         glBindVertexArray(m_vaos[j]);
         Error::Check("After glBindVertexArray(m_vaos[j])");
-
-        // create coord buffer
-        /*
-        GLuint id[3];
-        glGenBuffers(3, id);
-        Error::Check("After glGenBuffers");
-        */
 
         // Bind VBO and send vertex data
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[j]);
@@ -140,35 +103,10 @@ Disk::Disk()
 
         glBindVertexArray(0); // Unbind VAO
     }
-
-    /* from triangle
-    glBindBuffer(GL_ARRAY_BUFFER, id[0]);
-    Error::Check("After glBindBuffer");
-    glBufferData(GL_ARRAY_BUFFER, 2 * 3 * sizeof(float), (void *)coord, GL_STATIC_DRAW);
-    Error::Check("After glBufferData");
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0); // coord
-    Error::Check("After glVertexAttribPointer");
-    glEnableVertexAttribArray(0);
-    Error::Check("After glEnableVertexAttribArray");
-    glBindBuffer(GL_ARRAY_BUFFER, id[1]);
-    Error::Check("After glBindBuffer");
-    glBufferData(GL_ARRAY_BUFFER, 3 * 3 * sizeof(unsigned char), (void *)color, GL_STATIC_DRAW);
-    Error::Check("After glBufferData");
-    glVertexAttribPointer(1, 3, GL_UNSIGNED_BYTE, GL_TRUE, 0, 0); // color
-    Error::Check("After glVertexAttribPointer");
-    glEnableVertexAttribArray(1);
-    Error::Check("After glEnableVertexAttribArray");
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id[2]);
-    Error::Check("After glBindBuffer");
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), (void *)index, GL_STATIC_DRAW);
-    Error::Check("After glBufferData");
-    */
 }
 
 Disk::~Disk()
 {
-    // glDeleteVertexArrays(1, &m_vao);
-    // Error::Check("After glDeleteVertexArrays(1, &m_vao)");
     glDeleteVertexArrays(5, m_vaos);
     Error::Check("After glDeleteVertexArrays(5, m_vaos)");
     glDeleteBuffers(5, m_vbos);
@@ -179,34 +117,12 @@ Disk::~Disk()
 
 void Disk::Draw()
 {
-    std::cout << "disk->Draw()";
-
-    /*
-    glBindVertexArray(m_vao);
-    Error::Check("After glBindVertexArray");
-    glDrawElements(GL_TRIANGLES, 300, GL_UNSIGNED_INT, 0);
-    Error::Check("After glDrawElements");
-    */
+    // std::cout << "disk->Draw()";
 
     for (int i = 0; i < 5; i++)
     {
-        glUniform1i(indexLocation, i); // Passa o índice do círculo
+        glUniform1i(indexLocation, i); // Atualiza a posição do centro do (novo) círculo
         glBindVertexArray(m_vaos[i]);
         glDrawElements(GL_TRIANGLES, 300, GL_UNSIGNED_INT, 0); // 300 = 3 * número de triângulos (n)
     }
-
-    /*
-    // Desenhar os 5 círculos, definindo o índice de cada um
-    for (int i = 0; i < 5; i++)
-    {
-        // Definir o índice do círculo atual
-        glUniform1i(indexLocation, i);
-
-        // Bind o VAO do círculo atual
-        glBindVertexArray(m_vaos[i]);
-
-        // Desenhar o círculo
-        glDrawElements(GL_TRIANGLES, 300, GL_UNSIGNED_INT, 0);
-    }
-    */
 }

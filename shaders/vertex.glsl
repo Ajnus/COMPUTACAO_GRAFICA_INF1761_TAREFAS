@@ -1,18 +1,12 @@
 #version 410
 
 layout (location = 0) in vec3 aPos; // the position variable has attribute position 0
-layout(location = 1) in vec4 aColor; // Cor do vértice
 out vec4 vertexColor;
-
-layout(location = 0) in vec4 coord;
-uniform mat4 M;
-
 uniform int circleIndex; // Uniform que será atualizado em cada iteração
 
 void main()
 {
-    gl_Position = vec4(aPos, 1.0); // see how we directly give a vec3 to vec4's constructor
-    //vertexColor = aColor; // vec4(1.0, 0.0, 0.0, 1.0);
+    gl_Position = vec4(aPos, 1.0);
 
     // Para usar cores diferentes para cada posição de vértice
     if (aPos.x == -0.5f && aPos.y == -0.5f) {

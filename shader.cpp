@@ -190,15 +190,6 @@ void Shader::SetUniform(const std::string &varname, const std::vector<glm::mat4>
   glUniformMatrix4fv(loc, mat.size(), GL_FALSE, (float *)mat.data());
 }
 
-/*
-void Shader::SetUniform(m_pid) const
-{
-  float color[3] = {1, 1, 0};
-  GLint loc = glGetUniformLocation(m_pid, "color");
-  glUniform3fv(loc, 1, color);
-}
-*/
-
 void Shader::ActiveTexture(const std::string &varname)
 {
   SetUniform(varname, m_texunit);

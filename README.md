@@ -1,2 +1,5 @@
-# COMPUTACAO_GRAFICA_INF1761_TAREFAS
-Para Tarefas (Trabalhos terão outro(s)) da disciplina INF1761 - Computação Gráfica; Bacharelado em Ciência da Computação, PUC-Rio. Professor: Waldemar Celes
+# Tarefa 1:
+
+Implemente uma classe para representar a forma geométrica de um polígono, conforme interface exposta nos slides. Escreva um programa teste. Para entrega, envie um arquivo pdf com o código que implementa a classe e uma imagem do resultado alcançado no teste.
+
+
